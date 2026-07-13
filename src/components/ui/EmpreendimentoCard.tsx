@@ -2,10 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Empreendimento } from "@/types";
-import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
 
 export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreendimento }) {
-  const { nome, status, bairro, cidade, image, imageAlt, isRender, slug, progresso } = empreendimento;
+  const { nome, status, bairro, cidade, image, imageAlt, slug, progresso } = empreendimento;
   const etapaAtual =
     status === "Em Construção" && progresso && progresso.length > 0
       ? progresso[progresso.length - 1]
@@ -33,9 +32,6 @@ export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreen
         <span className="absolute left-4 top-4 rounded-sm bg-graphite-900 px-3 py-1 text-[11px] font-medium tracking-wide text-white">
           {status}
         </span>
-        {isRender && image && (
-          <IllustrativeBadge className="absolute right-4 top-4" />
-        )}
       </div>
 
       <div className="flex items-start justify-between gap-4 p-6">

@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, MapPin, Ruler, Users } from "lucide-react";
+import { ArrowLeft, CheckCircle2, MapPin, Ruler, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { AndamentoObra } from "@/components/ui/AndamentoObra";
+import { Galeria } from "@/components/ui/Galeria";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CtaContato } from "@/sections/CtaContato";
 import { todosEmpreendimentos, getEmpreendimentoBySlug } from "@/data/empreendimentos";
+import { diferenciais } from "@/data/servicos";
 import { buildWhatsAppUrl, contactInfo } from "@/lib/site-config";
+import type { ImagemGaleria } from "@/types";
 
 export function generateStaticParams() {
   return todosEmpreendimentos.map((item) => ({ slug: item.slug }));
@@ -61,21 +64,30 @@ export default async function EmpreendimentoPage({
     tipo,
     image,
     imageAlt,
-    isRender,
-    linkOficial,
     localizacao,
     composicao,
     areaConstruida,
     cliente,
     progresso,
     galeria,
+    galeriaCompleta,
+    detalhesTecnicos,
+    tipologias,
   } = empreendimento;
+
   const voltarPorStatus = {
     "Concluído": { href: "/portfolio", label: "Voltar ao Portfólio" },
     "Em Construção": { href: "/em-andamento", label: "Voltar a Em Andamento" },
     "Lançamento": { href: "/lancamentos", label: "Voltar a Lançamentos" },
   } as const;
   const { href: voltarHref, label: voltarLabel } = voltarPorStatus[status];
+
+  const todasImagens: ImagemGaleria[] =
+    galeriaCompleta ??
+    (image
+      ? [{ src: image, alt: imageAlt, tipo: "fachada" as const }, ...(galeria ?? [])]
+      : (galeria ?? []));
+  const plantas = todasImagens.filter((img) => img.tipo === "planta");
 
   return (
     <>
@@ -97,46 +109,25 @@ export default async function EmpreendimentoPage({
             {voltarLabel}
           </Link>
 
+          {/* Visão Geral */}
           <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
             <div className="md:col-span-2">
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 {image ? (
-                  <>
-                    <Image
-                      src={image}
-                      alt={imageAlt}
-                      fill
-                      sizes="(min-width: 768px) 66vw, 100vw"
-                      className="object-cover"
-                      priority
-                    />
-                    {isRender && <IllustrativeBadge className="absolute right-4 top-4" />}
-                  </>
+                  <Image
+                    src={image}
+                    alt={imageAlt}
+                    fill
+                    sizes="(min-width: 768px) 66vw, 100vw"
+                    className="object-cover"
+                    priority
+                  />
                 ) : (
                   <div className="flex h-full items-center justify-center text-sm text-stone-600">
                     Imagem em breve
                   </div>
                 )}
               </div>
-
-              {galeria && galeria.length > 0 && (
-                <div className="mt-6 grid grid-cols-2 gap-4">
-                  {galeria.map((img) => (
-                    <div key={img.src} className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(min-width: 768px) 33vw, 50vw"
-                        className="object-cover"
-                      />
-                      {img.tipo === "interior" && (
-                        <IllustrativeBadge className="absolute right-3 top-3" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
 
               {(localizacao || composicao) && (
                 <div className="mt-8 flex flex-col gap-4">
@@ -176,7 +167,7 @@ export default async function EmpreendimentoPage({
                 )}
               </div>
 
-              <div className="mt-8 flex flex-col gap-3">
+              <div className="mt-8">
                 <Button
                   href={buildWhatsAppUrl(
                     contactInfo.salesPhoneRaw,
@@ -188,18 +179,6 @@ export default async function EmpreendimentoPage({
                 >
                   Falar sobre este imóvel
                 </Button>
-
-                {linkOficial && (
-                  <a
-                    href={linkOficial}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 text-sm font-medium text-stone-600 underline decoration-gold-500 decoration-2 underline-offset-4 transition-colors hover:text-gold-600"
-                  >
-                    Ver ficha completa no site oficial
-                    <ExternalLink size={14} strokeWidth={1.5} />
-                  </a>
-                )}
               </div>
 
               {progresso && progresso.length > 0 && (
@@ -216,6 +195,95 @@ export default async function EmpreendimentoPage({
           </div>
         </Container>
       </section>
+
+      {/* Diferenciais (lançamentos) */}
+      {status === "Lançamento" && (
+        <section className="bg-graphite-900 py-section-lg">
+          <Container>
+            <SectionHeading eyebrow="Por que este empreendimento" title="Diferenciais" tone="dark" />
+            <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+              {diferenciais.map((item) => (
+                <li key={item.titulo} className="border-t border-white/15 pt-5">
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-400" />
+                    <div>
+                      <p className="text-sm font-semibold text-white">{item.titulo}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-stone-400">{item.descricao}</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
+
+      {/* Detalhes Técnicos */}
+      {((detalhesTecnicos && detalhesTecnicos.length > 0) || (tipologias && tipologias.length > 0)) && (
+        <section className="py-section-lg">
+          <Container>
+            <SectionHeading eyebrow="Ficha técnica" title="Detalhes do Empreendimento" />
+
+            {detalhesTecnicos && detalhesTecnicos.length > 0 && (
+              <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3 md:grid-cols-5">
+                {detalhesTecnicos.map((item) => (
+                  <div key={item.label} className="border-t border-stone-200 pt-4">
+                    <dt className="text-xs text-stone-500">{item.label}</dt>
+                    <dd className="mt-1 font-display text-lg font-semibold text-graphite-900">
+                      {item.valor}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+
+            {tipologias && tipologias.length > 0 && (
+              <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+                {tipologias.map((item) => (
+                  <div key={item.categoria} className="border border-stone-200 p-6">
+                    <h3 className="font-display text-base font-semibold text-graphite-900">
+                      {item.categoria}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-stone-600">{item.descricao}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Container>
+        </section>
+      )}
+
+      {/* Plantas */}
+      {plantas.length > 0 && (
+        <section className="bg-stone-50 py-section-lg">
+          <Container>
+            <SectionHeading
+              eyebrow="Projetos"
+              title="Plantas"
+              description="Plantas técnicas reais do empreendimento, organizadas por nível. Clique para ampliar."
+            />
+            <div className="mt-10">
+              <Galeria images={plantas} showFilter={false} />
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* Galeria completa */}
+      {todasImagens.length > 1 && (
+        <section className="py-section-lg">
+          <Container>
+            <SectionHeading
+              eyebrow="Imagens"
+              title="Galeria"
+              description="Fachada, ambientes e plantas do empreendimento."
+            />
+            <div className="mt-10">
+              <Galeria images={todasImagens} />
+            </div>
+          </Container>
+        </section>
+      )}
 
       <CtaContato />
     </>

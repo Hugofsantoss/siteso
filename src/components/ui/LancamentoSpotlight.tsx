@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
 import { diferenciais } from "@/data/servicos";
 import type { Empreendimento } from "@/types";
 
@@ -24,7 +23,6 @@ export function LancamentoSpotlight({
     cidade,
     image,
     imageAlt,
-    isRender,
     localizacao,
     composicao,
     galeria,
@@ -56,7 +54,6 @@ export function LancamentoSpotlight({
               <span className="absolute left-4 top-4 rounded-sm bg-graphite-900 px-3 py-1 text-[11px] font-medium tracking-wide text-white">
                 {status}
               </span>
-              {isRender && <IllustrativeBadge className="absolute right-4 top-4" />}
             </div>
 
             {planta && (

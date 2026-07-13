@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
 import type { Servico } from "@/types";
 
 export function ServicoDetail({
@@ -58,7 +57,6 @@ export function ServicoDetail({
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
-            {servico.isRender && <IllustrativeBadge className="absolute right-4 top-4" />}
           </motion.div>
 
           <motion.div

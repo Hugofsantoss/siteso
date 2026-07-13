@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
 import { siteConfig } from "@/lib/site-config";
 
 export function Hero() {
@@ -20,10 +19,6 @@ export function Hero() {
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20" />
-
-      <div className="absolute right-5 top-24 z-10 md:right-10">
-        <IllustrativeBadge />
-      </div>
 
       <Container className="relative z-10 pb-24 pt-40 md:pb-32">
         <motion.div
