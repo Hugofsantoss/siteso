@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Empreendimentos",
   description:
     "Conheça os lançamentos e as obras em andamento da Sólido Construções Prediais em Belo Horizonte.",
+  alternates: { canonical: "/empreendimentos" },
 };
 
 export default function EmpreendimentosPage() {
@@ -17,6 +18,7 @@ export default function EmpreendimentosPage() {
     <>
       <PageHeader
         breadcrumb="Empreendimentos"
+        path="/empreendimentos"
         eyebrow="Novos Projetos"
         title="Empreendimentos"
         description="Lançamentos e obras em andamento da Sólido em Belo Horizonte."

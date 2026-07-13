@@ -24,9 +24,19 @@ export async function generateMetadata({
   const empreendimento = getEmpreendimentoBySlug(slug);
   if (!empreendimento) return {};
 
+  const description = `${empreendimento.nome} — ${empreendimento.status} da Sólido Construções Prediais em ${empreendimento.bairro ? `${empreendimento.bairro}, ` : ""}${empreendimento.cidade}.`;
+
   return {
     title: empreendimento.nome,
-    description: `${empreendimento.nome} — ${empreendimento.status} da Sólido Construções Prediais em ${empreendimento.bairro ? `${empreendimento.bairro}, ` : ""}${empreendimento.cidade}.`,
+    description,
+    alternates: { canonical: `/empreendimentos/${slug}` },
+    openGraph: empreendimento.image
+      ? {
+          title: empreendimento.nome,
+          description,
+          images: [{ url: empreendimento.image, alt: empreendimento.imageAlt }],
+        }
+      : undefined,
   };
 }
 
@@ -50,6 +60,7 @@ export default async function EmpreendimentoPage({
     <>
       <PageHeader
         breadcrumb={nome}
+        path={`/empreendimentos/${slug}`}
         eyebrow={status}
         title={nome}
         description={bairro ? `${bairro}, ${cidade}` : cidade}

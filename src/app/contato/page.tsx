@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Contato",
   description:
     "Fale com a Sólido Construções Prediais em Belo Horizonte. Telefone, WhatsApp, email, endereço e formulário de contato.",
+  alternates: { canonical: "/contato" },
 };
 
 const mapEmbedSrc =
@@ -21,6 +22,7 @@ export default function ContatoPage() {
     <>
       <PageHeader
         breadcrumb="Contato"
+        path="/contato"
         eyebrow="Fale conosco"
         title="Contato"
         description="Estamos prontos para conversar sobre o seu próximo empreendimento, construção ou revitalização de fachada."

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Portfólio",
   description:
     "Obras concluídas pela Sólido Construções Prediais em Belo Horizonte: edifícios residenciais e casas entregues.",
+  alternates: { canonical: "/portfolio" },
 };
 
 export default function PortfolioPage() {
@@ -16,6 +17,7 @@ export default function PortfolioPage() {
     <>
       <PageHeader
         breadcrumb="Portfólio"
+        path="/portfolio"
         eyebrow="Obras concluídas"
         title="Portfólio"
         description="Empreendimentos entregues pela Sólido Construções Prediais em Belo Horizonte."

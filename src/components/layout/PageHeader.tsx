@@ -1,16 +1,31 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { siteConfig } from "@/lib/site-config";
 
 interface PageHeaderProps {
   eyebrow?: string;
   title: string;
   description?: string;
   breadcrumb: string;
+  path: string;
 }
 
-export function PageHeader({ eyebrow, title, description, breadcrumb }: PageHeaderProps) {
+export function PageHeader({ eyebrow, title, description, breadcrumb, path }: PageHeaderProps) {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      { "@type": "ListItem", position: 2, name: breadcrumb, item: `${siteConfig.url}${path}` },
+    ],
+  };
+
   return (
     <section className="bg-graphite-900 pt-36 pb-16 md:pt-44 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Container>
         <nav aria-label="Breadcrumb" className="text-xs text-stone-400">
           <ol className="flex items-center gap-2">

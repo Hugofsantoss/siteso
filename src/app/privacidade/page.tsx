@@ -6,12 +6,17 @@ import { contactInfo, siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description: "Política de Privacidade da Sólido Construções Prediais.",
+  alternates: { canonical: "/privacidade" },
 };
 
 export default function PrivacidadePage() {
   return (
     <>
-      <PageHeader breadcrumb="Política de Privacidade" title="Política de Privacidade" />
+      <PageHeader
+        breadcrumb="Política de Privacidade"
+        path="/privacidade"
+        title="Política de Privacidade"
+      />
 
       <section className="py-section-lg">
         <Container>

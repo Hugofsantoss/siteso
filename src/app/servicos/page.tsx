@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Serviços",
   description:
     "Construção de edifícios, construção de casas e revitalização de fachadas em Belo Horizonte, com a Sólido Construções Prediais.",
+  alternates: { canonical: "/servicos" },
 };
 
 export default function ServicosPage() {
@@ -15,6 +16,7 @@ export default function ServicosPage() {
     <>
       <PageHeader
         breadcrumb="Serviços"
+        path="/servicos"
         eyebrow="O que fazemos"
         title="Nossos Serviços"
         description="Da fundação ao acabamento, atuamos em cada etapa da construção com engenharia sólida e atenção aos detalhes."

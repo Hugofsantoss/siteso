@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Sobre",
   description:
     "Conheça a Sólido Construções Prediais: missão, visão e valores de uma construtora consolidada em Belo Horizonte.",
+  alternates: { canonical: "/sobre" },
 };
 
 const pilares = [
@@ -39,6 +40,7 @@ export default function SobrePage() {
     <>
       <PageHeader
         breadcrumb="Sobre"
+        path="/sobre"
         eyebrow="Institucional"
         title="Sobre a Sólido"
         description={siteConfig.tagline + "."}
