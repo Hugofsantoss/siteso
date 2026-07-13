@@ -15,4 +15,8 @@ export interface Servico {
   slug: string;
   titulo: string;
   descricao: string;
+  descricaoLonga?: string;
+  image?: string;
+  imageAlt?: string;
+  isRender?: boolean;
 }
