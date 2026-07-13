@@ -192,36 +192,29 @@ Nota: Construção de Casas usa fotografia aérea real do projeto Casa Branca (p
 ## Empreendimentos
 
 Status:
-⬜ Pendente
+✅ Concluído
 
 Adicionar:
 
-☐ Cards modernos
-
-☐ Página individual
-
-☐ Galeria
-
-☐ Localização
-
-☐ Informações reais
+- [x] Cards modernos (EmpreendimentoCard, badge de status + selo "Imagem ilustrativa" quando aplicável)
+- [x] Página individual (`/empreendimentos/[slug]`, 18 páginas via generateStaticParams)
+- [ ] Galeria — apenas 1 imagem por empreendimento no momento; galeria multi-foto fica para melhoria futura quando houver mais material oficial
+- [x] Localização (bairro/cidade reais)
+- [x] Informações reais (2 lançamentos + 4 em construção reais; link "Ver ficha completa no site oficial" quando disponível)
 
 ---
 
 ## Portfólio
 
 Status:
-⬜ Pendente
+✅ Concluído
 
 Melhorar:
 
-☐ Fotografias
-
-☐ Organização
-
-☐ Layout
-
-☐ Filtros
+- [x] Fotografias — 10 das 12 obras com render/foto oficial real; 2 (Marília de Dirceu, Sindágua) sem imagem própria disponível na fonte oficial (galeria da fonte aponta para outros empreendimentos por erro de cadastro do site original) — exibem "Imagem em breve" em vez de foto incorreta
+- [x] Organização (grid 3 colunas, mesma página individual das demais)
+- [x] Layout
+- [ ] Filtros — avaliado e descartado por ora: todas as 12 obras são do mesmo tipo/status, sem ganho real de UX; reavaliar se o portfólio crescer
 
 ---
 
