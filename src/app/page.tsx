@@ -1,7 +1,17 @@
+import { Hero } from "@/sections/Hero";
+import { ServicosGrid } from "@/sections/ServicosGrid";
+import { EmpreendimentosDestaque } from "@/sections/EmpreendimentosDestaque";
+import { Diferenciais } from "@/sections/Diferenciais";
+import { CtaContato } from "@/sections/CtaContato";
+
 export default function Home() {
   return (
-    <div className="flex min-h-[70vh] items-center justify-center pt-20">
-      <p className="text-stone-400">Home em construção — Etapa 3.</p>
-    </div>
+    <>
+      <Hero />
+      <ServicosGrid />
+      <EmpreendimentosDestaque />
+      <Diferenciais />
+      <CtaContato />
+    </>
   );
 }
