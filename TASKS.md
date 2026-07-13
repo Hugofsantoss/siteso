@@ -151,32 +151,44 @@ Nota: Construção de Casas usa fotografia aérea real do projeto Casa Branca (p
 
 ---
 
-## Empreendimentos
+## Empreendimentos / Seção de Obras (v2)
 
 Status:
 ✅ Concluído
 
 Adicionar:
 
-- [x] Cards modernos (EmpreendimentoCard, badge de status + selo "Imagem ilustrativa" quando aplicável)
+- [x] Cards modernos (EmpreendimentoCard, badge de status, indicador de progresso para obras em construção, selo "Imagem ilustrativa" quando aplicável)
 - [x] Página individual (`/empreendimentos/[slug]`, 18 páginas via generateStaticParams)
-- [ ] Galeria — apenas 1 imagem por empreendimento no momento; galeria multi-foto fica para melhoria futura quando houver mais material oficial
-- [x] Localização (bairro/cidade reais)
-- [x] Informações reais (2 lançamentos + 4 em construção reais; link "Ver ficha completa no site oficial" quando disponível)
+- [x] Separação por categoria (Lançamentos / Em Construção em `/empreendimentos`; Concluídas em `/portfolio`)
+- [x] Sistema de filtros (por tipo: Residencial/Comercial/Esportivo) e busca (por nome/bairro) — componente `ObraGridComFiltro`
+- [x] Localização (bairro/cidade reais), tipo corrigido (Sindágua = Comercial, Clube Albert Scharlé = Esportivo)
+- [x] Descrição completa real (localização/entorno + composição do edifício, extraídas literalmente de cada página oficial)
+- [x] Área construída real (Casa Branca: 427,40 m²) e cliente real (Sindágua: sindicato) quando disponíveis
+- [x] Andamento da obra com **percentuais reais** por etapa (Fundação/Alvenaria/Acabamento), extraídos das barras de progresso publicadas no site oficial — nenhum percentual inventado
+- [x] Galeria adicional por obra (planta técnica real ou render de interior de unidade modelo — 1 imagem extra por obra; galeria multi-foto mais ampla fica para quando houver mais material oficial disponível)
+- [x] Imagem de capa para as 18 obras (as 2 que ficavam sem imagem — Marília de Dirceu e Sindágua — tiveram fachada própria localizada numa nova varredura)
+
+Não implementado (dado não disponível na fonte oficial; não inventado):
+- [ ] Cliente (exceto Sindágua) — desenvolvimentos próprios da Sólido, sem cliente externo aplicável
+- [ ] Ano de início/conclusão — não publicado no site oficial
+- [ ] Tecnologias utilizadas / serviços executados como lista estruturada — não publicado
+- [ ] Vídeos — não publicado
+- [ ] Projetos 3D como seção separada — a fachada já é o render 3D oficial; não há material adicional (ex: modelo 3D interativo)
 
 ---
 
 ## Portfólio
 
 Status:
-✅ Concluído
+✅ Concluído (ver também "Empreendimentos / Seção de Obras (v2)" acima)
 
 Melhorar:
 
-- [x] Fotografias — 10 das 12 obras com render/foto oficial real; 2 (Marília de Dirceu, Sindágua) sem imagem própria disponível na fonte oficial (galeria da fonte aponta para outros empreendimentos por erro de cadastro do site original) — exibem "Imagem em breve" em vez de foto incorreta
+- [x] Fotografias — 18 de 18 obras agora com imagem de capa real
 - [x] Organização (grid 3 colunas, mesma página individual das demais)
 - [x] Layout
-- [ ] Filtros — avaliado e descartado por ora: todas as 12 obras são do mesmo tipo/status, sem ganho real de UX; reavaliar se o portfólio crescer
+- [x] Filtros — implementado por tipo (Residencial/Comercial/Esportivo) + busca por nome/bairro
 
 ---
 
