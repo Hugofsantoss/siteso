@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
+/* Paleta institucional — neutros quentes extraídos da identidade real (logo grafite/preto),
+   com dourado como único acento premium e verde reservado a estados semânticos (RULES.md). */
+@theme {
+  --color-stone-50: #f6f5f3;
+  --color-stone-100: #edebe7;
+  --color-stone-200: #ddd9d1;
+  --color-stone-300: #c3beb3;
+  --color-stone-400: #8b8880;
+  --color-stone-600: #55534c;
+  --color-stone-700: #3c3a34;
+  --color-graphite-800: #2e2c28;
+  --color-graphite-900: #1c1b17;
+
+  --color-gold-400: #c7a468;
+  --color-gold-500: #a6813e;
+  --color-gold-600: #8a6a30;
+
+  --color-institutional-green: #4b6350;
+
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-inter);
+
+  --spacing-section: 6rem;
+  --spacing-section-lg: 8rem;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-graphite-900);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold-400);
+  color: var(--color-graphite-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
 }
