@@ -5,7 +5,11 @@ import type { Empreendimento } from "@/types";
 import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
 
 export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreendimento }) {
-  const { nome, status, bairro, cidade, image, imageAlt, isRender, slug } = empreendimento;
+  const { nome, status, bairro, cidade, image, imageAlt, isRender, slug, progresso } = empreendimento;
+  const etapaAtual =
+    status === "Em Construção" && progresso && progresso.length > 0
+      ? progresso[progresso.length - 1]
+      : null;
 
   return (
     <Link
@@ -47,6 +51,21 @@ export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreen
           className="mt-1 shrink-0 text-stone-400 transition-colors group-hover:text-gold-600"
         />
       </div>
+
+      {etapaAtual && (
+        <div className="px-6 pb-6">
+          <div className="mb-1.5 flex items-baseline justify-between text-xs">
+            <span className="text-stone-500">{etapaAtual.etapa}</span>
+            <span className="font-semibold text-gold-600">{etapaAtual.percentual}%</span>
+          </div>
+          <div className="h-1 w-full overflow-hidden rounded-full bg-stone-200">
+            <div
+              className="h-full rounded-full bg-gold-500"
+              style={{ width: `${etapaAtual.percentual}%` }}
+            />
+          </div>
+        </div>
+      )}
     </Link>
   );
 }

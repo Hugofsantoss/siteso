@@ -33,10 +33,15 @@ src/
     ui/           componentes base reutilizáveis
     layout/       Header, Footer, MobileNav, PageHeader
   sections/       blocos de página (Hero, Diferenciais, CtaContato, ...)
-  lib/            dados institucionais (única fonte de verdade) e utilitários
+  data/           dados institucionais (empreendimentos, serviços) — única fonte de verdade
+  lib/            utilitários e configuração (contato, schema de formulário)
   hooks/          hooks React customizados
   types/          tipos TypeScript compartilhados
   assets/         imagens otimizadas via import estático (ex: logo)
 public/
-  images/         imagens servidas por caminho direto (hero, empreendimentos, portfólio)
+  images/         imagens servidas por caminho direto (hero, empreendimentos, portfólio, galeria)
 ```
+
+## Dados de empreendimentos
+
+Todos os dados de obras (`src/data/empreendimentos.ts`) são extraídos literalmente do site oficial (localização, composição, andamento por etapa, área construída). Nenhum dado é inventado — campos sem informação oficial disponível (ano de início/conclusão, tecnologias, vídeos) ficam de fora do modelo até que a informação seja fornecida, em vez de exibir texto genérico.

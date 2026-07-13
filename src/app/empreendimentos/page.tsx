@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmpreendimentoCard } from "@/components/ui/EmpreendimentoCard";
+import { ObraGridComFiltro } from "@/components/ui/ObraGridComFiltro";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CtaContato } from "@/sections/CtaContato";
-import { lancamentos, emConstrucao } from "@/lib/empreendimentos";
+import { lancamentos, emConstrucao } from "@/data/empreendimentos";
 
 export const metadata: Metadata = {
   title: "Empreendimentos",
@@ -37,11 +38,13 @@ export default function EmpreendimentosPage() {
 
       <section className="bg-stone-50 py-section-lg">
         <Container>
-          <SectionHeading eyebrow="Em andamento" title="Obras em Construção" />
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
-            {emConstrucao.map((empreendimento) => (
-              <EmpreendimentoCard key={empreendimento.slug} empreendimento={empreendimento} />
-            ))}
+          <SectionHeading
+            eyebrow="Em andamento"
+            title="Obras em Construção"
+            description="Acompanhe o andamento real de cada etapa da obra."
+          />
+          <div className="mt-10">
+            <ObraGridComFiltro items={emConstrucao} columns={4} />
           </div>
         </Container>
       </section>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { EmpreendimentoCard } from "@/components/ui/EmpreendimentoCard";
+import { ObraGridComFiltro } from "@/components/ui/ObraGridComFiltro";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CtaContato } from "@/sections/CtaContato";
-import { portfolio } from "@/lib/empreendimentos";
+import { portfolio } from "@/data/empreendimentos";
 
 export const metadata: Metadata = {
   title: "Portfólio",
@@ -26,11 +26,9 @@ export default function PortfolioPage() {
 
       <section className="py-section-lg">
         <Container>
-          <SectionHeading eyebrow="12 obras" title="Empreendimentos Entregues" />
-          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-            {portfolio.map((empreendimento) => (
-              <EmpreendimentoCard key={empreendimento.slug} empreendimento={empreendimento} />
-            ))}
+          <SectionHeading eyebrow={`${portfolio.length} obras`} title="Empreendimentos Entregues" />
+          <div className="mt-10">
+            <ObraGridComFiltro items={portfolio} columns={3} />
           </div>
         </Container>
       </section>

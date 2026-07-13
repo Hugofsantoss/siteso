@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { todosEmpreendimentos } from "@/lib/empreendimentos";
+import { todosEmpreendimentos } from "@/data/empreendimentos";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

@@ -5,7 +5,7 @@ import { Building2, Home, PaintRoller } from "lucide-react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { servicos } from "@/lib/servicos";
+import { servicos } from "@/data/servicos";
 
 const icons = [Building2, Home, PaintRoller];
 

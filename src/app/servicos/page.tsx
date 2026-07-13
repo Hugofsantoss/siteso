@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ServicoDetail } from "@/sections/ServicoDetail";
 import { CtaContato } from "@/sections/CtaContato";
-import { servicos } from "@/lib/servicos";
+import { servicos } from "@/data/servicos";
 
 export const metadata: Metadata = {
   title: "Serviços",

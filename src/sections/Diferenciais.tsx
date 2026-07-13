@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { diferenciais } from "@/lib/servicos";
+import { diferenciais } from "@/data/servicos";
 
 export function Diferenciais() {
   return (

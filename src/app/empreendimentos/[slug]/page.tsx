@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, MapPin } from "lucide-react";
+import { ArrowLeft, ExternalLink, MapPin, Ruler, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { IllustrativeBadge } from "@/components/ui/IllustrativeBadge";
+import { AndamentoObra } from "@/components/ui/AndamentoObra";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CtaContato } from "@/sections/CtaContato";
-import { todosEmpreendimentos, getEmpreendimentoBySlug } from "@/lib/empreendimentos";
+import { todosEmpreendimentos, getEmpreendimentoBySlug } from "@/data/empreendimentos";
 import { buildWhatsAppUrl, contactInfo } from "@/lib/site-config";
 
 export function generateStaticParams() {
@@ -52,7 +53,23 @@ export default async function EmpreendimentoPage({
     notFound();
   }
 
-  const { nome, status, bairro, cidade, image, imageAlt, isRender, linkOficial } = empreendimento;
+  const {
+    nome,
+    status,
+    bairro,
+    cidade,
+    tipo,
+    image,
+    imageAlt,
+    isRender,
+    linkOficial,
+    localizacao,
+    composicao,
+    areaConstruida,
+    cliente,
+    progresso,
+    galeria,
+  } = empreendimento;
   const voltarHref = status === "Concluído" ? "/portfolio" : "/empreendimentos";
   const voltarLabel = status === "Concluído" ? "Voltar ao Portfólio" : "Voltar a Empreendimentos";
 
@@ -97,6 +114,36 @@ export default async function EmpreendimentoPage({
                   </div>
                 )}
               </div>
+
+              {galeria && galeria.length > 0 && (
+                <div className="mt-6 grid grid-cols-2 gap-4">
+                  {galeria.map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="(min-width: 768px) 33vw, 50vw"
+                        className="object-cover"
+                      />
+                      {img.tipo === "interior" && (
+                        <IllustrativeBadge className="absolute right-3 top-3" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {(localizacao || composicao) && (
+                <div className="mt-8 flex flex-col gap-4">
+                  {localizacao && (
+                    <p className="text-sm leading-relaxed text-stone-600">{localizacao}</p>
+                  )}
+                  {composicao && (
+                    <p className="text-sm leading-relaxed text-stone-600">{composicao}</p>
+                  )}
+                </div>
+              )}
             </div>
 
             <div>
@@ -104,15 +151,26 @@ export default async function EmpreendimentoPage({
                 {status}
               </span>
 
-              <div className="mt-6 flex items-start gap-2.5 text-sm text-stone-600">
-                <MapPin size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-600" />
-                <span>{bairro ? `${bairro}, ${cidade}` : cidade}</span>
+              <div className="mt-6 flex flex-col gap-3 text-sm text-stone-600">
+                <div className="flex items-start gap-2.5">
+                  <MapPin size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-600" />
+                  <span>
+                    {bairro ? `${bairro}, ${cidade}` : cidade} · {tipo}
+                  </span>
+                </div>
+                {areaConstruida && (
+                  <div className="flex items-start gap-2.5">
+                    <Ruler size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-600" />
+                    <span>{areaConstruida} de área construída</span>
+                  </div>
+                )}
+                {cliente && (
+                  <div className="flex items-start gap-2.5">
+                    <Users size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-600" />
+                    <span>{cliente}</span>
+                  </div>
+                )}
               </div>
-
-              <p className="mt-6 text-sm leading-relaxed text-stone-600">
-                Empreendimento residencial desenvolvido pela Sólido Construções Prediais, com
-                foco em qualidade construtiva e localização estratégica em Belo Horizonte.
-              </p>
 
               <div className="mt-8 flex flex-col gap-3">
                 <Button
@@ -139,6 +197,17 @@ export default async function EmpreendimentoPage({
                   </a>
                 )}
               </div>
+
+              {progresso && progresso.length > 0 && (
+                <div className="mt-10 border-t border-stone-200 pt-8">
+                  <h2 className="font-display text-lg font-semibold text-graphite-900">
+                    Andamento da Obra
+                  </h2>
+                  <div className="mt-6">
+                    <AndamentoObra progresso={progresso} />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </Container>

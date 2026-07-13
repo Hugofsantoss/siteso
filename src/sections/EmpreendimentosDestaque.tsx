@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmpreendimentoCard } from "@/components/ui/EmpreendimentoCard";
-import { lancamentos } from "@/lib/empreendimentos";
+import { lancamentos } from "@/data/empreendimentos";
 
 export function EmpreendimentosDestaque() {
   return (
