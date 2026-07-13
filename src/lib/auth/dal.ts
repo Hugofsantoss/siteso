@@ -5,9 +5,9 @@ import { redirect, notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ADMIN_SESSION_COOKIE, INVESTIDOR_SESSION_COOKIE } from "./constants";
 
-export const verifyAdminSession = cache(async () => {
+export const getAdminFromSession = cache(async () => {
   const token = (await cookies()).get(ADMIN_SESSION_COOKIE)?.value;
-  if (!token) redirect("/admin/login");
+  if (!token) return null;
 
   const sessao = await db.sessao.findUnique({
     where: { token },
@@ -21,7 +21,7 @@ export const verifyAdminSession = cache(async () => {
     !sessao.admin.ativo ||
     sessao.expiresAt < new Date()
   ) {
-    redirect("/admin/login");
+    return null;
   }
 
   return {
@@ -31,9 +31,9 @@ export const verifyAdminSession = cache(async () => {
   };
 });
 
-export const verifyInvestidorSession = cache(async () => {
+export const getInvestidorFromSession = cache(async () => {
   const token = (await cookies()).get(INVESTIDOR_SESSION_COOKIE)?.value;
-  if (!token) redirect("/investidor/login");
+  if (!token) return null;
 
   const sessao = await db.sessao.findUnique({
     where: { token },
@@ -47,7 +47,7 @@ export const verifyInvestidorSession = cache(async () => {
     !sessao.investidor.ativo ||
     sessao.expiresAt < new Date()
   ) {
-    redirect("/investidor/login");
+    return null;
   }
 
   return {
@@ -56,6 +56,18 @@ export const verifyInvestidorSession = cache(async () => {
     email: sessao.investidor.email,
   };
 });
+
+export async function verifyAdminSession() {
+  const admin = await getAdminFromSession();
+  if (!admin) redirect("/admin/login");
+  return admin;
+}
+
+export async function verifyInvestidorSession() {
+  const investidor = await getInvestidorFromSession();
+  if (!investidor) redirect("/investidor/login");
+  return investidor;
+}
 
 export const getInvestidorObras = cache(async () => {
   const { investidorId } = await verifyInvestidorSession();
@@ -66,12 +78,18 @@ export const getInvestidorObras = cache(async () => {
   });
 });
 
-export async function assertInvestidorAcessoObra(obraId: string) {
-  const { investidorId } = await verifyInvestidorSession();
-
+export async function investidorTemAcessoObra(
+  investidorId: string,
+  obraId: string,
+): Promise<boolean> {
   const vinculo = await db.investidorObra.findUnique({
     where: { investidorId_obraId: { investidorId, obraId } },
   });
+  return !!vinculo;
+}
 
-  if (!vinculo) notFound();
+export async function assertInvestidorAcessoObra(obraId: string) {
+  const { investidorId } = await verifyInvestidorSession();
+  const autorizado = await investidorTemAcessoObra(investidorId, obraId);
+  if (!autorizado) notFound();
 }
