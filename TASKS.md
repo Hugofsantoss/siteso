@@ -225,6 +225,39 @@ Também adicionado nesta etapa: Política de Privacidade (LGPD) e página 404 pe
 
 ---
 
+# Área do Investidor (Painel Admin + Painel Investidor)
+
+Status:
+✅ Concluído
+
+Sistema completo de autenticação e gestão para dois tipos de usuário: Administrador (CRUD total) e
+Investidor (acesso somente às próprias obras). Stack adicional: Prisma 7 + SQLite local + adapter
+better-sqlite3, bcryptjs, sessões opacas em banco (não JWT).
+
+- [x] Schema do banco: Admin, Investidor, Sessao, Obra, InvestidorObra, EtapaCronograma,
+      Atualizacao, Midia, Documento — pronto para Postgres/S3 no futuro sem refatoração
+- [x] Autenticação: hash de senha (bcrypt, 12 rounds), sessão DB-backed com cookie
+      httpOnly/secure/sameSite=lax, DAL (`verifyAdminSession`/`verifyInvestidorSession`) que
+      sempre valida contra o banco, `proxy.ts` com checagem otimista de cookie por rota
+- [x] Painel Admin: dashboard com estatísticas reais, CRUD de Obras (criar/editar/excluir/
+      arquivar/duplicar/reordenar), CRUD de Investidores com vínculo N:N às obras, upload de
+      mídias/documentos por obra, timeline de atualizações por obra
+- [x] Painel Investidor: dashboard "Minhas Obras" (somente obras vinculadas), página de obra
+      individual com andamento/cronograma, timeline de atualizações, galeria com lightbox e
+      download, lista de documentos
+- [x] Armazenamento local (`uploads/`, fora de `public/`) servido apenas por rota autenticada
+      (`/api/arquivos/[...path]`) que verifica sessão e vínculo investidor↔obra em cada requisição
+- [x] Zero investidores fictícios — apenas 1 admin real via bootstrap por variável de ambiente
+      (`prisma/seed.ts`), decisão do cliente para não violar a regra de nunca inventar dados
+
+Validado com Playwright (instalado/desinstalado sob demanda, não é dependência do projeto):
+isolamento completo entre investidores (obra de outro investidor retorna 404 na página e 403 no
+arquivo; sem sessão retorna 401), sessões de admin e investidor não se misturam, desativar um
+investidor encerra a sessão dele imediatamente, exclusão de obra remove os arquivos físicos de
+capa/mídias/documentos do disco.
+
+---
+
 # UX
 
 Status:
@@ -391,7 +424,7 @@ Uma tarefa só pode ser considerada concluída quando:
 
 ☐ Blog
 
-☐ Área administrativa
+☑ Área administrativa — feito (Área do Investidor: painel Admin com CRUD completo + painel Investidor)
 
 ☐ CMS para empreendimentos
 
