@@ -221,21 +221,18 @@ Melhorar:
 ## Contato
 
 Status:
-⬜ Pendente
+✅ Concluído
 
 Verificar:
 
-☐ WhatsApp
+- [x] WhatsApp (link direto real + envio do formulário via WhatsApp)
+- [x] Email (mailto real)
+- [x] Telefone (tel: real, geral e vendas)
+- [x] Google Maps (embed com endereço real)
+- [x] Formulário (React Hook Form + Zod; label, placeholder, validação e erro em todo campo — sem backend próprio, envia via WhatsApp)
+- [x] Mensagens de sucesso (estado de confirmação com opção de reenviar)
 
-☐ Email
-
-☐ Telefone
-
-☐ Google Maps
-
-☐ Formulário
-
-☐ Mensagens de sucesso
+Também adicionado nesta etapa: Política de Privacidade (LGPD) e página 404 personalizada.
 
 ---
 
@@ -421,9 +418,9 @@ Uma tarefa só pode ser considerada concluída quando:
 
 ☐ CMS para empreendimentos
 
-☐ Integração com WhatsApp
+☑ Integração com WhatsApp — feito (Header, Footer, cards de empreendimento e formulário de contato)
 
-☐ Formulário com envio por API
+☐ Formulário com envio por API — hoje o envio é feito via WhatsApp (sem backend); API própria fica para uma evolução futura
 
 ☐ Chat online
 
@@ -433,13 +430,13 @@ Uma tarefa só pode ser considerada concluída quando:
 
 ☐ Meta Pixel
 
-☐ LGPD
+☑ LGPD — feito (seção dedicada na Política de Privacidade)
 
-☐ Política de Privacidade
+☑ Política de Privacidade — feito (`/privacidade`)
 
 ☐ Termos de Uso
 
-☐ Página 404 personalizada
+☑ Página 404 personalizada — feito
 
 ☐ Modo escuro (avaliar necessidade)
 
