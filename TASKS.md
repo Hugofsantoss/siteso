@@ -31,60 +31,64 @@ Objetivos:
 ## Home
 
 Status:
-⬜ Pendente
+✅ Concluído
 
 Checklist
 
-- Hero impactante
-- CTA principal
-- CTA secundário
-- Scroll Indicator
-- Animações suaves
-- Overlay elegante
-- Foto profissional
+- [x] Hero impactante (render oficial do Edifício D'Ouro + selo "Imagem ilustrativa")
+- [x] CTA principal ("Solicitar orçamento")
+- [x] CTA secundário ("Conheça nossos empreendimentos")
+- [x] Scroll Indicator (chevron animado)
+- [x] Animações suaves (fade/slide via Framer Motion, whileInView)
+- [x] Overlay elegante (gradiente sobre a imagem do hero)
+- [x] Foto profissional — nota: site oficial não possui fotografia real de obra; usamos os renders 3D oficiais claramente sinalizados (ver commit "feat: Home completa")
+- [x] Seção de Serviços (3 serviços reais)
+- [x] Empreendimentos em destaque (2 lançamentos reais)
+- [x] Diferenciais reais (4 itens)
+- [x] CTA final de contato + WhatsApp
 
 ---
 
 ## Responsividade
 
 Status:
-⬜ Pendente
+🟡 Em andamento (Home validada; demais páginas pendentes conforme forem criadas)
 
-Testar:
+Testar (Home — sem overflow horizontal em nenhum breakpoint):
 
-☐ 1920px
+☑ 1920px
 
-☐ 1440px
+☑ 1440px
 
-☐ 1366px
+☑ 1366px
 
-☐ 1024px
+☑ 1024px
 
-☐ 768px
+☑ 768px
 
-☐ 430px
+☑ 430px
 
-☐ 414px
+☑ 414px
 
-☐ 390px
+☑ 390px
 
-☐ 375px
+☑ 375px
 
-☐ 360px
+☑ 360px
 
-☐ 320px
+☑ 320px
 
 Corrigir:
 
-☐ textos
+☑ textos (Home)
 
-☐ botões
+☑ botões (Home)
 
-☐ imagens
+☑ imagens (Home)
 
-☐ cards
+☑ cards (Home)
 
-☐ menu
+☐ menu (mobile nav ok na Home; revalidar quando todas as páginas existirem)
 
 ☐ footer
 
