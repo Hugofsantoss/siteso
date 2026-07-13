@@ -151,44 +151,39 @@ Nota: Construção de Casas usa fotografia aérea real do projeto Casa Branca (p
 
 ---
 
-## Empreendimentos / Seção de Obras (v2)
+## Obras (v3 — navegação em 3 categorias)
 
 Status:
 ✅ Concluído
 
-Adicionar:
+A navegação "Empreendimentos" foi reestruturada em um dropdown "Obras" com três páginas dedicadas, substituindo a página combinada única:
+
+- **Portfólio** (`/portfolio`) — inalterado (mesmo layout, cards, filtros e animações de antes).
+- **Em Andamento** (`/em-andamento`, novo) — as 4 obras em construção, com busca/filtro e progresso real por obra.
+- **Lançamentos** (`/lancamentos`, novo) — os 2 lançamentos, em layout "spotlight" alternado com imagem, planta, descrição, diferenciais e status.
+
+`/empreendimentos` redireciona (308) para `/lancamentos`; as páginas individuais `/empreendimentos/[slug]` (18 obras) permanecem no mesmo lugar — nenhuma rota quebrada.
+
+Adicionado:
 
 - [x] Cards modernos (EmpreendimentoCard, badge de status, indicador de progresso para obras em construção, selo "Imagem ilustrativa" quando aplicável)
-- [x] Página individual (`/empreendimentos/[slug]`, 18 páginas via generateStaticParams)
-- [x] Separação por categoria (Lançamentos / Em Construção em `/empreendimentos`; Concluídas em `/portfolio`)
-- [x] Sistema de filtros (por tipo: Residencial/Comercial/Esportivo) e busca (por nome/bairro) — componente `ObraGridComFiltro`
+- [x] Página individual (`/empreendimentos/[slug]`, 18 páginas via generateStaticParams), com botão "voltar" contextual por categoria
+- [x] Separação por categoria em navegação própria (dropdown "Obras" no header + acordeão no menu mobile)
+- [x] Sistema de filtros (por tipo: Residencial/Comercial/Esportivo) e busca (por nome/bairro) — componente `ObraGridComFiltro`, usado em Em Andamento e Portfólio
 - [x] Localização (bairro/cidade reais), tipo corrigido (Sindágua = Comercial, Clube Albert Scharlé = Esportivo)
 - [x] Descrição completa real (localização/entorno + composição do edifício, extraídas literalmente de cada página oficial)
 - [x] Área construída real (Casa Branca: 427,40 m²) e cliente real (Sindágua: sindicato) quando disponíveis
 - [x] Andamento da obra com **percentuais reais** por etapa (Fundação/Alvenaria/Acabamento), extraídos das barras de progresso publicadas no site oficial — nenhum percentual inventado
 - [x] Galeria adicional por obra (planta técnica real ou render de interior de unidade modelo — 1 imagem extra por obra; galeria multi-foto mais ampla fica para quando houver mais material oficial disponível)
 - [x] Imagem de capa para as 18 obras (as 2 que ficavam sem imagem — Marília de Dirceu e Sindágua — tiveram fachada própria localizada numa nova varredura)
+- [x] Diferenciais reais por lançamento (reaproveita os diferenciais institucionais da empresa — não há diferenciais específicos por projeto publicados na fonte oficial)
 
 Não implementado (dado não disponível na fonte oficial; não inventado):
 - [ ] Cliente (exceto Sindágua) — desenvolvimentos próprios da Sólido, sem cliente externo aplicável
-- [ ] Ano de início/conclusão — não publicado no site oficial
+- [ ] Data de início / previsão de entrega — não publicado no site oficial
 - [ ] Tecnologias utilizadas / serviços executados como lista estruturada — não publicado
 - [ ] Vídeos — não publicado
 - [ ] Projetos 3D como seção separada — a fachada já é o render 3D oficial; não há material adicional (ex: modelo 3D interativo)
-
----
-
-## Portfólio
-
-Status:
-✅ Concluído (ver também "Empreendimentos / Seção de Obras (v2)" acima)
-
-Melhorar:
-
-- [x] Fotografias — 18 de 18 obras agora com imagem de capa real
-- [x] Organização (grid 3 colunas, mesma página individual das demais)
-- [x] Layout
-- [x] Filtros — implementado por tipo (Residencial/Comercial/Esportivo) + busca por nome/bairro
 
 ---
 
