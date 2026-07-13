@@ -116,29 +116,20 @@ Best Practices > 95
 ## SEO
 
 Status:
-⬜ Pendente
+✅ Concluído
 
 Implementar:
 
-☐ Meta Title
-
-☐ Meta Description
-
-☐ Open Graph
-
-☐ Twitter Card
-
-☐ Canonical
-
-☐ Robots
-
-☐ Sitemap
-
-☐ Schema.org
-
-☐ Breadcrumb
-
-☐ Alt em imagens
+- [x] Meta Title (título único por página via template no layout)
+- [x] Meta Description (real e específica por página)
+- [x] Open Graph (imagem padrão real + override por empreendimento com a foto do próprio imóvel)
+- [x] Twitter Card (summary_large_image)
+- [x] Canonical (todas as páginas estáticas + páginas dinâmicas de empreendimento)
+- [x] Robots (`/robots.txt` gerado, libera indexação e aponta pro sitemap)
+- [x] Sitemap (`/sitemap.xml` dinâmico, cobre todas as páginas + 18 empreendimentos)
+- [x] Schema.org (JSON-LD `GeneralContractor` no layout + `BreadcrumbList` em toda página interna)
+- [x] Breadcrumb (visual + dados estruturados)
+- [x] Alt em imagens (todas as imagens têm alt descritivo real)
 
 ---
 
