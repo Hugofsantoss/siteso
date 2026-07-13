@@ -15,15 +15,16 @@ Status:
 ## Layout Premium
 
 Status:
-⬜ Pendente
+🟡 Em andamento
 
 Objetivos:
 
-- Criar identidade visual moderna.
-- Melhorar tipografia.
-- Refinar espaçamentos.
-- Melhorar hierarquia visual.
-- Melhorar experiência do usuário.
+- [x] Criar identidade visual moderna (design tokens: paleta grafite/dourado extraída do logo oficial, tipografia Playfair Display + Inter).
+- [x] Melhorar tipografia.
+- [x] Refinar espaçamentos (tokens de seção via Tailwind).
+- [x] Header responsivo (transparente/sólido) + MobileNav + Footer completo implementados e validados visualmente.
+- [ ] Melhorar hierarquia visual das páginas de conteúdo (em andamento nas próximas etapas).
+- [ ] Melhorar experiência do usuário (depende das páginas internas).
 
 ---
 
