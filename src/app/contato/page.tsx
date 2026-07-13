@@ -56,7 +56,7 @@ export default function ContatoPage() {
                       <a href={`tel:+${contactInfo.phoneRaw}`} className="hover:text-gold-600">
                         {contactInfo.phoneDisplay}
                       </a>
-                      <span className="block text-xs text-stone-400">Atendimento geral</span>
+                      <span className="block text-xs text-stone-600">Atendimento geral</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -68,7 +68,7 @@ export default function ContatoPage() {
                       >
                         {contactInfo.salesPhoneDisplay}
                       </a>
-                      <span className="block text-xs text-stone-400">Vendas</span>
+                      <span className="block text-xs text-stone-600">Vendas</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">

@@ -17,7 +17,7 @@ export function Footer() {
             href={siteConfig.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram da Sólido Construções Prediais"
+            aria-label="@solidoprediais no Instagram"
             className="mt-6 inline-flex items-center gap-2 text-sm text-stone-300 transition-colors hover:text-gold-400"
           >
             <InstagramIcon size={18} />
@@ -26,7 +26,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-500 uppercase">
+          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-400 uppercase">
             Navegação
           </h2>
           <ul className="mt-5 flex flex-col gap-3">
@@ -44,7 +44,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-500 uppercase">
+          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-400 uppercase">
             Contato
           </h2>
           <ul className="mt-5 flex flex-col gap-3 text-sm text-stone-300">
@@ -75,7 +75,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-500 uppercase">
+          <h2 className="text-xs font-medium tracking-[0.15em] text-stone-400 uppercase">
             Institucional
           </h2>
           <ul className="mt-5 flex flex-col gap-3">
@@ -92,7 +92,7 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-white/10">
-        <Container className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-stone-500 md:flex-row">
+        <Container className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-stone-400 md:flex-row">
           <p>
             © {year} {siteConfig.legalName}. Todos os direitos reservados.
           </p>

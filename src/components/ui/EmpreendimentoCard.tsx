@@ -10,7 +10,7 @@ export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreen
   return (
     <Link
       href={`/empreendimentos/${slug}`}
-      className="group block overflow-hidden border border-stone-200 transition-colors duration-300 hover:border-gold-500"
+      className="group block overflow-hidden border border-stone-200 bg-white transition-colors duration-300 hover:border-gold-500"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
         {image ? (
@@ -22,7 +22,7 @@ export function EmpreendimentoCard({ empreendimento }: { empreendimento: Empreen
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-sm text-stone-400">
+          <div className="flex h-full items-center justify-center text-sm text-stone-600">
             Imagem em breve
           </div>
         )}

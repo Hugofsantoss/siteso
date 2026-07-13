@@ -92,7 +92,7 @@ export default async function EmpreendimentoPage({
                     {isRender && <IllustrativeBadge className="absolute right-4 top-4" />}
                   </>
                 ) : (
-                  <div className="flex h-full items-center justify-center text-sm text-stone-400">
+                  <div className="flex h-full items-center justify-center text-sm text-stone-600">
                     Imagem em breve
                   </div>
                 )}
