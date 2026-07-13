@@ -166,7 +166,7 @@ A navegação "Empreendimentos" foi reestruturada em um dropdown "Obras" com tr�
 
 Adicionado:
 
-- [x] Cards modernos (EmpreendimentoCard, badge de status, indicador de progresso para obras em construção, selo "Imagem ilustrativa" quando aplicável)
+- [x] Cards modernos (EmpreendimentoCard, badge de status, indicador de progresso para obras em construção)
 - [x] Página individual (`/empreendimentos/[slug]`, 18 páginas via generateStaticParams), com botão "voltar" contextual por categoria
 - [x] Separação por categoria em navegação própria (dropdown "Obras" no header + acordeão no menu mobile)
 - [x] Sistema de filtros (por tipo: Residencial/Comercial/Esportivo) e busca (por nome/bairro) — componente `ObraGridComFiltro`, usado em Em Andamento e Portfólio
@@ -174,13 +174,33 @@ Adicionado:
 - [x] Descrição completa real (localização/entorno + composição do edifício, extraídas literalmente de cada página oficial)
 - [x] Área construída real (Casa Branca: 427,40 m²) e cliente real (Sindágua: sindicato) quando disponíveis
 - [x] Andamento da obra com **percentuais reais** por etapa (Fundação/Alvenaria/Acabamento), extraídos das barras de progresso publicadas no site oficial — nenhum percentual inventado
-- [x] Galeria adicional por obra (planta técnica real ou render de interior de unidade modelo — 1 imagem extra por obra; galeria multi-foto mais ampla fica para quando houver mais material oficial disponível)
+- [x] Galeria adicional por obra (planta técnica real ou render de interior de unidade modelo; ver galeria completa dos lançamentos abaixo)
 - [x] Imagem de capa para as 18 obras (as 2 que ficavam sem imagem — Marília de Dirceu e Sindágua — tiveram fachada própria localizada numa nova varredura)
 - [x] Diferenciais reais por lançamento (reaproveita os diferenciais institucionais da empresa — não há diferenciais específicos por projeto publicados na fonte oficial)
 
 Não implementado (dado não disponível na fonte oficial; não inventado):
 - [ ] Cliente (exceto Sindágua) — desenvolvimentos próprios da Sólido, sem cliente externo aplicável
 - [ ] Data de início / previsão de entrega — não publicado no site oficial
+
+---
+
+## Obras (v4 — galeria completa, plantas, lightbox, ficha técnica)
+
+Status:
+✅ Concluído
+
+Nova varredura das páginas oficiais de Concept Funcionários e D'Ouro trouxe o conteúdo completo disponível (não apenas a fachada como antes):
+
+- [x] Selo "Imagem ilustrativa" removido de toda a interface — a maioria das imagens oficiais já traz esse aviso gravado nos próprios pixels pela fonte; o selo da interface era redundante
+- [x] Galeria completa por lançamento (17 imagens cada: fachada + 7 plantas por nível + 9 renders de ambientes de unidade modelo)
+- [x] Plantas organizadas por nível (2º Nível, 3º e 4º Nível, ... até 10º Nível / Subsolo até 6º Nível), visualização em alta resolução via lightbox
+- [x] Ficha técnica real: pavimentos, total de unidades, apartamentos privativos/tipo, coberturas (`detalhesTecnicos`) + descrição por tipologia — Área Privativa, Apartamento Tipo, Cobertura (`tipologias`)
+- [x] Página reestruturada em seções: Visão Geral, Diferenciais, Detalhes do Empreendimento, Plantas, Galeria, Andamento da Obra, Contato
+- [x] Botão/link "Ver ficha completa no site oficial" removido — toda a informação agora está no próprio site
+- [x] Lightbox reutilizável (Galeria + Plantas): navegação por teclado (Esc/setas) e clique, contador de imagens, legenda, zoom
+- [x] Filtro de galeria por categoria (Fachada / Plantas / Ambientes) com contagem
+
+Não encontrado na fonte oficial (não inventado): endereço completo da obra, número de torres, elevadores, área do terreno, área privativa em m² (para estes 2 lançamentos — Bahia/Bernardo Guimarães no portfólio têm essa métrica), banheiros/varandas como contagem discreta, acabamentos, infraestrutura, previsão de entrega.
 - [ ] Tecnologias utilizadas / serviços executados como lista estruturada — não publicado
 - [ ] Vídeos — não publicado
 - [ ] Projetos 3D como seção separada — a fachada já é o render 3D oficial; não há material adicional (ex: modelo 3D interativo)
