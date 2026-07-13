@@ -168,22 +168,24 @@ Implementar:
 ## Sobre
 
 Status:
-⬜ Pendente
+✅ Concluído
 
-Utilizar apenas informações oficiais.
+Utilizar apenas informações oficiais. — Missão, Visão, Valores e apresentação com texto real de solidoprediais.com.br/sobre.
 
-Nunca inventar conteúdo.
+Nunca inventar conteúdo. — Nenhuma foto de equipe fabricada; sem depoimentos falsos.
 
 ---
 
 ## Serviços
 
 Status:
-⬜ Pendente
+✅ Concluído
 
-Verificar se todos os serviços existentes estão cadastrados.
+Verificar se todos os serviços existentes estão cadastrados. — Construção de Edifícios, Construção de Casas e Revitalização de Fachadas, os 3 serviços reais do site oficial.
 
-Não criar serviços inexistentes.
+Não criar serviços inexistentes. — Nenhum serviço adicional foi criado.
+
+Nota: Construção de Casas usa fotografia aérea real do projeto Casa Branca (primeira imagem fotográfica genuína do site, não um render). Revitalização de Fachadas não possui imagem por não haver fotografia nem render oficial disponível — seção tratada tipograficamente.
 
 ---
 
