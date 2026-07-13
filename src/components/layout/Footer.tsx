@@ -30,16 +30,29 @@ export function Footer() {
             Navegação
           </h2>
           <ul className="mt-5 flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm text-stone-300 transition-colors hover:text-gold-400"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.flatMap((link) =>
+              "children" in link
+                ? link.children.map((sub) => (
+                    <li key={sub.href}>
+                      <Link
+                        href={sub.href}
+                        className="text-sm text-stone-300 transition-colors hover:text-gold-400"
+                      >
+                        {sub.label}
+                      </Link>
+                    </li>
+                  ))
+                : (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-stone-300 transition-colors hover:text-gold-400"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ),
+            )}
           </ul>
         </div>
 

@@ -45,8 +45,8 @@ export function Hero() {
             <Button href="/contato" variant="primary">
               Solicitar orçamento
             </Button>
-            <Button href="/empreendimentos" variant="ghost">
-              Conheça nossos empreendimentos
+            <Button href="/lancamentos" variant="ghost">
+              Conheça nossos lançamentos
             </Button>
           </div>
         </motion.div>

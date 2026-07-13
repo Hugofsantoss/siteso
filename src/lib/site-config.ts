@@ -33,11 +33,16 @@ export function buildWhatsAppUrl(phone: string, message?: string) {
   return message ? `${base}&text=${encodeURIComponent(message)}` : base;
 }
 
+export const obrasLinks = [
+  { label: "Portfólio", href: "/portfolio" },
+  { label: "Em Andamento", href: "/em-andamento" },
+  { label: "Lançamentos", href: "/lancamentos" },
+] as const;
+
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "Sobre", href: "/sobre" },
   { label: "Serviços", href: "/servicos" },
-  { label: "Empreendimentos", href: "/empreendimentos" },
-  { label: "Portfólio", href: "/portfolio" },
+  { label: "Obras", children: obrasLinks },
   { label: "Contato", href: "/contato" },
 ] as const;

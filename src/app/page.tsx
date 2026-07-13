@@ -1,6 +1,6 @@
 import { Hero } from "@/sections/Hero";
 import { ServicosGrid } from "@/sections/ServicosGrid";
-import { EmpreendimentosDestaque } from "@/sections/EmpreendimentosDestaque";
+import { LancamentosDestaque } from "@/sections/LancamentosDestaque";
 import { Diferenciais } from "@/sections/Diferenciais";
 import { CtaContato } from "@/sections/CtaContato";
 
@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Hero />
       <ServicosGrid />
-      <EmpreendimentosDestaque />
+      <LancamentosDestaque />
       <Diferenciais />
       <CtaContato />
     </>

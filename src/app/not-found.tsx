@@ -12,14 +12,14 @@ export default function NotFound() {
           </h1>
           <p className="text-sm leading-relaxed text-stone-600">
             A página que você procura não existe ou foi movida. Volte para a Home ou confira
-            nossos empreendimentos.
+            nossas obras.
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-4">
             <Button href="/" variant="primary">
               Voltar para a Home
             </Button>
-            <Button href="/empreendimentos" variant="secondary">
-              Ver empreendimentos
+            <Button href="/portfolio" variant="secondary">
+              Ver obras
             </Button>
           </div>
         </div>

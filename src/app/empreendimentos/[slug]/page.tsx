@@ -70,8 +70,12 @@ export default async function EmpreendimentoPage({
     progresso,
     galeria,
   } = empreendimento;
-  const voltarHref = status === "Concluído" ? "/portfolio" : "/empreendimentos";
-  const voltarLabel = status === "Concluído" ? "Voltar ao Portfólio" : "Voltar a Empreendimentos";
+  const voltarPorStatus = {
+    "Concluído": { href: "/portfolio", label: "Voltar ao Portfólio" },
+    "Em Construção": { href: "/em-andamento", label: "Voltar a Em Andamento" },
+    "Lançamento": { href: "/lancamentos", label: "Voltar a Lançamentos" },
+  } as const;
+  const { href: voltarHref, label: voltarLabel } = voltarPorStatus[status];
 
   return (
     <>

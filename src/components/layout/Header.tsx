@@ -10,6 +10,7 @@ import { navLinks } from "@/lib/site-config";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { NavDropdown } from "@/components/layout/NavDropdown";
 import logo from "@/assets/images/brand/logo.png";
 
 export function Header() {
@@ -38,19 +39,28 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-10 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium tracking-wide transition-colors ${
-                  solid
-                    ? "text-graphite-700 hover:text-gold-600"
-                    : "text-white hover:text-gold-400"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              "children" in link ? (
+                <NavDropdown
+                  key={`${link.label}-${pathname}`}
+                  label={link.label}
+                  items={link.children}
+                  tone={solid ? "solid" : "transparent"}
+                />
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium tracking-wide transition-colors ${
+                    solid
+                      ? "text-graphite-700 hover:text-gold-600"
+                      : "text-white hover:text-gold-400"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="hidden md:block">
