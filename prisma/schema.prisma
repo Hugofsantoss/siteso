@@ -1,0 +1,161 @@
+// Prisma schema — Área do Investidor (Sólido Construções Prediais)
+// SQLite local (arquivo em prisma/dev.db, fora do versionamento).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ---------------------------------------------------------------------------
+// Usuários
+// ---------------------------------------------------------------------------
+
+model Admin {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  senhaHash String
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessoes Sessao[]
+}
+
+model Investidor {
+  id         String   @id @default(cuid())
+  nome       String
+  email      String   @unique
+  telefone   String?
+  documento  String? // CPF/CNPJ — opcional
+  senhaHash  String
+  ativo      Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  obras   InvestidorObra[]
+  sessoes Sessao[]
+}
+
+// Sessão opaca com referência em banco (revogável), independente de tipo de usuário.
+model Sessao {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  tipo      String // "admin" | "investidor"
+  adminId   String?
+  admin     Admin?      @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  investidorId String?
+  investidor   Investidor? @relation(fields: [investidorId], references: [id], onDelete: Cascade)
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+}
+
+// ---------------------------------------------------------------------------
+// Obras
+// ---------------------------------------------------------------------------
+
+model Obra {
+  id                 String    @id @default(cuid())
+  nome               String
+  codigoInterno      String    @unique
+  endereco           String?
+  bairro             String?
+  cidade             String
+  status             String // "Planejamento" | "Em Construção" | "Concluída"
+  descricao          String?
+  dataInicio         DateTime?
+  previsaoEntrega    DateTime?
+  percentualExecucao Int       @default(0)
+  capaPath           String?
+  ordem              Int       @default(0)
+  arquivada          Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  investidores  InvestidorObra[]
+  atualizacoes  Atualizacao[]
+  midias        Midia[]
+  documentos    Documento[]
+  etapas        EtapaCronograma[]
+}
+
+model InvestidorObra {
+  id           String     @id @default(cuid())
+  investidorId String
+  obraId       String
+  investidor   Investidor @relation(fields: [investidorId], references: [id], onDelete: Cascade)
+  obra         Obra       @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+
+  @@unique([investidorId, obraId])
+  @@index([obraId])
+}
+
+// Etapas do cronograma / linha do tempo da construção (ex: Fundação 100%, Estrutura 90%...)
+model EtapaCronograma {
+  id          String @id @default(cuid())
+  obraId      String
+  obra        Obra   @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  nome        String
+  percentual  Int    @default(0)
+  ordem       Int    @default(0)
+  concluida   Boolean @default(false)
+  dataConclusao DateTime?
+
+  @@index([obraId])
+}
+
+// ---------------------------------------------------------------------------
+// Conteúdo por obra
+// ---------------------------------------------------------------------------
+
+model Atualizacao {
+  id        String   @id @default(cuid())
+  obraId    String
+  obra      Obra     @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  titulo    String
+  texto     String
+  data      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  midias Midia[]
+}
+
+model Midia {
+  id            String       @id @default(cuid())
+  obraId        String
+  obra          Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  atualizacaoId String?
+  atualizacao   Atualizacao? @relation(fields: [atualizacaoId], references: [id], onDelete: SetNull)
+  tipo          String // "foto" | "video"
+  titulo        String?
+  descricao     String?
+  categoria     String? // livre, ex: "Fundação", "Área de lazer"
+  arquivoPath   String
+  mesReferencia String? // "2026-07", para organizar a galeria por mês
+  ordem         Int          @default(0)
+  createdAt     DateTime     @default(now())
+
+  @@index([obraId])
+  @@index([atualizacaoId])
+}
+
+model Documento {
+  id              String   @id @default(cuid())
+  obraId          String
+  obra            Obra     @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  titulo          String
+  categoria       String // "Planta" | "Memorial" | "Cronograma" | "Relatório" | "Técnico" | "Outro"
+  arquivoPath     String
+  permiteDownload Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  @@index([obraId])
+}
