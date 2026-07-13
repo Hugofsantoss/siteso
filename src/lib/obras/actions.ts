@@ -124,10 +124,16 @@ export async function updateObraAction(
 export async function deleteObraAction(obraId: string) {
   await verifyAdminSession();
 
-  const obra = await db.obra.findUnique({ where: { id: obraId } });
+  const obra = await db.obra.findUnique({
+    where: { id: obraId },
+    include: { midias: true, documentos: true },
+  });
   if (!obra) return;
 
   if (obra.capaPath) await deleteUploadedFile(obra.capaPath);
+  for (const midia of obra.midias) await deleteUploadedFile(midia.arquivoPath);
+  for (const documento of obra.documentos) await deleteUploadedFile(documento.arquivoPath);
+
   await db.obra.delete({ where: { id: obraId } });
 
   revalidatePath("/admin/obras");

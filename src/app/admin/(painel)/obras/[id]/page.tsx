@@ -23,11 +23,6 @@ export default async function EditarObraPage({ params }: PageProps) {
 
   return (
     <div className="flex max-w-3xl flex-col gap-10">
-      <div>
-        <h1 className="font-display text-3xl font-semibold text-graphite-900">{obra.nome}</h1>
-        <p className="mt-1 text-sm text-stone-600">Código interno: {obra.codigoInterno}</p>
-      </div>
-
       <ObraForm
         action={action}
         submitLabel="Salvar alterações"
