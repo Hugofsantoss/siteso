@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { verifyAdminSession } from "@/lib/auth/dal";
 import { db } from "@/lib/db";
 import { deleteUploadedFile, saveUploadedFile } from "@/lib/storage";
+import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE, validarArquivo } from "@/lib/upload-validation";
 import { obraSchema } from "./schema";
 
 export type ObraFormState =
@@ -47,6 +48,13 @@ export async function createObraAction(
     return { error: "Já existe uma obra com esse código interno." };
   }
 
+  const capa = formData.get("capa");
+  const temCapa = capa instanceof File && capa.size > 0;
+  if (temCapa) {
+    const erroValidacao = validarArquivo(capa, ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE);
+    if (erroValidacao) return { error: erroValidacao };
+  }
+
   const { _max } = await db.obra.aggregate({ _max: { ordem: true } });
 
   const obra = await db.obra.create({
@@ -60,9 +68,8 @@ export async function createObraAction(
     },
   });
 
-  const capa = formData.get("capa");
-  if (capa instanceof File && capa.size > 0) {
-    const capaPath = await saveUploadedFile(capa, `obras/${obra.id}/capa`);
+  if (temCapa) {
+    const capaPath = await saveUploadedFile(capa as File, `obras/${obra.id}/capa`);
     await db.obra.update({ where: { id: obra.id }, data: { capaPath } });
   }
 
@@ -100,6 +107,9 @@ export async function updateObraAction(
   let capaPath = obraExistente.capaPath;
   const capa = formData.get("capa");
   if (capa instanceof File && capa.size > 0) {
+    const erroValidacao = validarArquivo(capa, ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE);
+    if (erroValidacao) return { error: erroValidacao };
+
     if (capaPath) await deleteUploadedFile(capaPath);
     capaPath = await saveUploadedFile(capa, `obras/${obraId}/capa`);
   }

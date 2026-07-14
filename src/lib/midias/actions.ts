@@ -4,6 +4,13 @@ import { revalidatePath } from "next/cache";
 import { verifyAdminSession } from "@/lib/auth/dal";
 import { db } from "@/lib/db";
 import { deleteUploadedFile, saveUploadedFile } from "@/lib/storage";
+import {
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  MAX_IMAGE_SIZE,
+  MAX_VIDEO_SIZE,
+  validarArquivo,
+} from "@/lib/upload-validation";
 
 export type MidiaFormState = { error?: string; ok?: boolean } | undefined;
 
@@ -19,10 +26,16 @@ export async function createMidiaAction(
     return { error: "Selecione um arquivo." };
   }
 
+  const tipo = formData.get("tipo") === "video" ? "video" : "foto";
+
+  const erroValidacao =
+    tipo === "video"
+      ? validarArquivo(arquivo, ALLOWED_VIDEO_TYPES, MAX_VIDEO_SIZE)
+      : validarArquivo(arquivo, ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE);
+  if (erroValidacao) return { error: erroValidacao };
+
   const obra = await db.obra.findUnique({ where: { id: obraId } });
   if (!obra) return { error: "Obra não encontrada." };
-
-  const tipo = formData.get("tipo") === "video" ? "video" : "foto";
   const titulo = (formData.get("titulo") as string)?.trim() || null;
   const descricao = (formData.get("descricao") as string)?.trim() || null;
   const categoria = (formData.get("categoria") as string)?.trim() || null;

@@ -20,7 +20,14 @@ export default async function EditarInvestidorPage({ params }: PageProps) {
   const [investidor, obrasDisponiveis] = await Promise.all([
     db.investidor.findUnique({
       where: { id },
-      include: { obras: { select: { obraId: true } } },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        telefone: true,
+        documento: true,
+        obras: { select: { obraId: true } },
+      },
     }),
     db.obra.findMany({
       where: { arquivada: false },

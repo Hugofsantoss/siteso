@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { verifyAdminSession } from "@/lib/auth/dal";
 import { db } from "@/lib/db";
 import { deleteUploadedFile, saveUploadedFile } from "@/lib/storage";
+import { ALLOWED_DOCUMENT_TYPES, MAX_DOCUMENT_SIZE, validarArquivo } from "@/lib/upload-validation";
 
 export type DocumentoFormState = { error?: string; ok?: boolean } | undefined;
 
@@ -18,6 +19,9 @@ export async function createDocumentoAction(
   if (!(arquivo instanceof File) || arquivo.size === 0) {
     return { error: "Selecione um arquivo." };
   }
+
+  const erroValidacao = validarArquivo(arquivo, ALLOWED_DOCUMENT_TYPES, MAX_DOCUMENT_SIZE);
+  if (erroValidacao) return { error: erroValidacao };
 
   const titulo = (formData.get("titulo") as string)?.trim();
   if (!titulo) return { error: "Informe um título para o documento." };
