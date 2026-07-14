@@ -45,4 +45,5 @@ export const navLinks = [
   { label: "Serviços", href: "/servicos" },
   { label: "Obras", children: obrasLinks },
   { label: "Contato", href: "/contato" },
+  { label: "Área do Investidor", href: "/area-do-investidor" },
 ] as const;

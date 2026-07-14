@@ -100,14 +100,6 @@ export function Footer() {
                 Política de Privacidade
               </Link>
             </li>
-            <li>
-              <Link
-                href="/investidor/login"
-                className="text-sm text-stone-300 transition-colors hover:text-gold-400"
-              >
-                Área do Investidor
-              </Link>
-            </li>
           </ul>
         </div>
       </Container>
