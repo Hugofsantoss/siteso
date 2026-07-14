@@ -1,41 +1,62 @@
 import "server-only";
-import { mkdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { randomBytes } from "node:crypto";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-export const UPLOADS_ROOT = path.resolve(/*turbopackIgnore: true*/ process.cwd(), process.env.UPLOADS_DIR ?? "./uploads");
+const BUCKET = process.env.SUPABASE_STORAGE_BUCKET ?? "uploads";
 
 function sanitizeExt(filename: string): string {
   const ext = path.extname(filename).toLowerCase();
   return /^\.[a-z0-9]{1,8}$/.test(ext) ? ext : "";
 }
 
-export async function saveUploadedFile(file: File, subdir: string): Promise<string> {
-  const filename = `${randomBytes(16).toString("hex")}${sanitizeExt(file.name)}`;
-  const relativePath = `${subdir}/${filename}`;
-  const absoluteDir = path.join(UPLOADS_ROOT, subdir);
+let cachedClient: SupabaseClient | null = null;
 
-  await mkdir(absoluteDir, { recursive: true });
-  const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(UPLOADS_ROOT, relativePath), buffer);
+/** Cliente com a service role key — nunca deve ser importado em código que roda no browser. */
+function supabaseAdmin(): SupabaseClient {
+  if (cachedClient) return cachedClient;
 
-  return relativePath;
+  const url = process.env.SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceRoleKey) {
+    throw new Error(
+      "Defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no .env para habilitar uploads.",
+    );
+  }
+
+  cachedClient = createClient(url, serviceRoleKey, { auth: { persistSession: false } });
+  return cachedClient;
 }
 
-export async function deleteUploadedFile(relativePath: string): Promise<void> {
-  const absolutePath = resolveUploadedFilePath(relativePath);
-  if (!absolutePath) return;
-  try {
-    await unlink(absolutePath);
-  } catch {
-    // arquivo pode já não existir — nada a fazer
+export async function saveUploadedFile(file: File, subdir: string): Promise<string> {
+  const filename = `${randomBytes(16).toString("hex")}${sanitizeExt(file.name)}`;
+  const objectPath = `${subdir}/${filename}`;
+
+  const { error } = await supabaseAdmin()
+    .storage.from(BUCKET)
+    .upload(objectPath, file, { contentType: file.type || undefined, upsert: false });
+
+  if (error) {
+    throw new Error(`Falha ao enviar arquivo para o Supabase Storage: ${error.message}`);
+  }
+
+  return objectPath;
+}
+
+export async function deleteUploadedFile(objectPath: string): Promise<void> {
+  const { error } = await supabaseAdmin().storage.from(BUCKET).remove([objectPath]);
+  if (error) {
+    // Arquivo pode já não existir (ex: exclusões concorrentes) — não interrompe o fluxo.
+    console.error(`Falha ao remover "${objectPath}" do Supabase Storage:`, error.message);
   }
 }
 
-/** Resolve um caminho relativo dentro de UPLOADS_ROOT, recusando qualquer tentativa de path traversal. */
-export function resolveUploadedFilePath(relativePath: string): string | null {
-  const absolute = path.normalize(path.join(UPLOADS_ROOT, relativePath));
-  const rootWithSep = UPLOADS_ROOT.endsWith(path.sep) ? UPLOADS_ROOT : `${UPLOADS_ROOT}${path.sep}`;
-  if (!absolute.startsWith(rootWithSep)) return null;
-  return absolute;
+export async function downloadUploadedFile(
+  objectPath: string,
+): Promise<{ bytes: Buffer; contentType: string } | null> {
+  const { data, error } = await supabaseAdmin().storage.from(BUCKET).download(objectPath);
+  if (error || !data) return null;
+
+  const bytes = Buffer.from(await data.arrayBuffer());
+  return { bytes, contentType: data.type || "application/octet-stream" };
 }

@@ -1,26 +1,11 @@
 import { NextResponse } from "next/server";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { db } from "@/lib/db";
 import {
   getAdminFromSession,
   getInvestidorFromSession,
   investidorTemAcessoObra,
 } from "@/lib/auth/dal";
-import { resolveUploadedFilePath } from "@/lib/storage";
-
-const MIME_TYPES: Record<string, string> = {
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".png": "image/png",
-  ".webp": "image/webp",
-  ".avif": "image/avif",
-  ".gif": "image/gif",
-  ".mp4": "video/mp4",
-  ".webm": "video/webm",
-  ".mov": "video/quicktime",
-  ".pdf": "application/pdf",
-};
+import { downloadUploadedFile } from "@/lib/storage";
 
 async function arquivoPertenceAInvestidor(
   relativePath: string,
@@ -59,21 +44,15 @@ export async function GET(
     }
   }
 
-  const absolutePath = resolveUploadedFilePath(relativePath);
-  if (!absolutePath) {
-    return new NextResponse(null, { status: 400 });
-  }
-
-  try {
-    const buffer = await readFile(absolutePath);
-    const ext = path.extname(absolutePath).toLowerCase();
-    return new NextResponse(new Uint8Array(buffer), {
-      headers: {
-        "Content-Type": MIME_TYPES[ext] ?? "application/octet-stream",
-        "Cache-Control": "private, max-age=0, must-revalidate",
-      },
-    });
-  } catch {
+  const arquivo = await downloadUploadedFile(relativePath);
+  if (!arquivo) {
     return new NextResponse(null, { status: 404 });
   }
+
+  return new NextResponse(new Uint8Array(arquivo.bytes), {
+    headers: {
+      "Content-Type": arquivo.contentType,
+      "Cache-Control": "private, max-age=0, must-revalidate",
+    },
+  });
 }

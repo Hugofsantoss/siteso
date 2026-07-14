@@ -1,5 +1,6 @@
 // Prisma schema — Área do Investidor (Sólido Construções Prediais)
-// SQLite local (arquivo em prisma/dev.db, fora do versionamento).
+// PostgreSQL (Supabase). Runtime usa a connection pooler (DATABASE_URL, via
+// src/lib/db.ts); o CLI de migrations usa a conexão direta (ver prisma.config.ts).
 
 generator client {
   provider = "prisma-client"
@@ -7,7 +8,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 // ---------------------------------------------------------------------------

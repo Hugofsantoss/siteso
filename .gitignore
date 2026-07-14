@@ -42,11 +42,3 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
-
-# database (SQLite local)
-*.db
-*.db-journal
-/prisma/migrations/dev.db
-
-# uploads (fotos/vídeos/documentos da Área do Investidor — dados privados de clientes)
-/uploads

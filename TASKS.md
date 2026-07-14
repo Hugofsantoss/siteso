@@ -231,11 +231,12 @@ Status:
 ✅ Concluído
 
 Sistema completo de autenticação e gestão para dois tipos de usuário: Administrador (CRUD total) e
-Investidor (acesso somente às próprias obras). Stack adicional: Prisma 7 + SQLite local + adapter
-better-sqlite3, bcryptjs, sessões opacas em banco (não JWT).
+Investidor (acesso somente às próprias obras). Stack: Prisma 7 + PostgreSQL (Supabase) via
+`@prisma/adapter-pg`, Supabase Storage para uploads, bcryptjs, sessões opacas em banco (não JWT).
+Pronto para deploy na Vercel.
 
-- [x] Schema do banco: Admin, Investidor, Sessao, Obra, InvestidorObra, EtapaCronograma,
-      Atualizacao, Midia, Documento — pronto para Postgres/S3 no futuro sem refatoração
+- [x] Schema do banco (PostgreSQL/Supabase): Admin, Investidor, Sessao, Obra, InvestidorObra,
+      EtapaCronograma, Atualizacao, Midia, Documento
 - [x] Autenticação: hash de senha (bcrypt, 12 rounds), sessão DB-backed com cookie
       httpOnly/secure/sameSite=lax, DAL (`verifyAdminSession`/`verifyInvestidorSession`) que
       sempre valida contra o banco, `proxy.ts` com checagem otimista de cookie por rota
@@ -245,8 +246,9 @@ better-sqlite3, bcryptjs, sessões opacas em banco (não JWT).
 - [x] Painel Investidor: dashboard "Minhas Obras" (somente obras vinculadas), página de obra
       individual com andamento/cronograma, timeline de atualizações, galeria com lightbox e
       download, lista de documentos
-- [x] Armazenamento local (`uploads/`, fora de `public/`) servido apenas por rota autenticada
-      (`/api/arquivos/[...path]`) que verifica sessão e vínculo investidor↔obra em cada requisição
+- [x] Armazenamento em bucket privado do Supabase Storage (nunca público) servido apenas por
+      rota autenticada (`/api/arquivos/[...path]`) que verifica sessão e vínculo investidor↔obra
+      em cada requisição, usando a service role key só em código server-only
 - [x] Zero investidores fictícios — apenas 1 admin real via bootstrap por variável de ambiente
       (`prisma/seed.ts`), decisão do cliente para não violar a regra de nunca inventar dados
 

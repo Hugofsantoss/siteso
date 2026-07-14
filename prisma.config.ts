@@ -10,6 +10,10 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // O CLI (migrate/introspect) precisa de uma conexão direta ao Postgres, não da
+    // conexão via pooler (pgbouncer) usada em runtime. Na Supabase, DIRECT_URL é a
+    // porta 5432 (conexão direta); DATABASE_URL é a porta 6543 (pooler, transaction
+    // mode) usada pelo app em src/lib/db.ts.
+    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"],
   },
 });
