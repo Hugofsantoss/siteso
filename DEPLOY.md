@@ -12,11 +12,20 @@ feitos por você.
 
 ## 2. Configurar o banco de dados
 
-Em **Project Settings → Database → Connection string**, copie duas URLs:
+Em **Project Settings → Database → Connection string**, o painel mostra a connection string do
+**Shared Pooler** (Supavisor). Host e usuário são os mesmos nos dois modos — só a porta muda:
 
-- **Connection pooling** (modo *Transaction*, porta `6543`) → variável `DATABASE_URL`. Garanta
-  que termine com `?pgbouncer=true`.
-- **Direct connection** (porta `5432`) → variável `DIRECT_URL`.
+```
+postgresql://postgres.[PROJECT-REF]:[SENHA]@aws-0-[REGIAO].pooler.supabase.com:5432/postgres
+```
+
+- **Porta `5432` (modo Session)** → variável `DIRECT_URL`. Usada só pelo CLI do Prisma
+  (`migrate`/`seed`), que precisa de uma conexão que suporte DDL.
+- **Porta `6543` (modo Transaction)** → variável `DATABASE_URL`. Pegue a mesma string, troque
+  a porta para `6543` e acrescente `?pgbouncer=true` no final. Usada pela aplicação em runtime —
+  é a que aguenta muitas conexões simultâneas de funções serverless (Vercel).
+
+Ou seja, das duas variáveis só a porta (e o `?pgbouncer=true`) muda entre elas.
 
 ## 3. Configurar o Storage (uploads)
 
