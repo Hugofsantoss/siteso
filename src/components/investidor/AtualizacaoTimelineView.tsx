@@ -1,3 +1,5 @@
+import { AtualizacaoMidiaGrid } from "@/components/investidor/AtualizacaoMidiaGrid";
+
 export interface AtualizacaoItem {
   id: string;
   titulo: string;
@@ -31,26 +33,7 @@ export function AtualizacaoTimelineView({ atualizacoes }: { atualizacoes: Atuali
               {atualizacao.texto}
             </p>
             {atualizacao.midias.length > 0 && (
-              <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4">
-                {atualizacao.midias.map((midia) =>
-                  midia.tipo === "video" ? (
-                    <video
-                      key={midia.id}
-                      src={midia.url}
-                      className="h-20 w-full bg-black object-cover"
-                      controls
-                    />
-                  ) : (
-                    // eslint-disable-next-line @next/next/no-img-element -- servido por rota autenticada, next/image não envia cookies de sessão
-                    <img
-                      key={midia.id}
-                      src={midia.url}
-                      alt=""
-                      className="h-20 w-full object-cover"
-                    />
-                  ),
-                )}
-              </div>
+              <AtualizacaoMidiaGrid midias={atualizacao.midias} />
             )}
           </div>
         </li>

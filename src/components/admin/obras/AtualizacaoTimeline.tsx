@@ -59,13 +59,13 @@ export function AtualizacaoTimeline({ atualizacoes }: { atualizacoes: Atualizaca
               {atualizacao.texto}
             </p>
             {atualizacao.midias.length > 0 && (
-              <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4">
+              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {atualizacao.midias.map((midia) =>
                   midia.tipo === "video" ? (
                     <video
                       key={midia.id}
                       src={midia.url}
-                      className="h-20 w-full bg-black object-cover"
+                      className="aspect-[4/3] w-full bg-black object-cover"
                       controls
                     />
                   ) : (
@@ -74,7 +74,7 @@ export function AtualizacaoTimeline({ atualizacoes }: { atualizacoes: Atualizaca
                       key={midia.id}
                       src={midia.url}
                       alt=""
-                      className="h-20 w-full object-cover"
+                      className="aspect-[4/3] w-full object-cover"
                     />
                   ),
                 )}
